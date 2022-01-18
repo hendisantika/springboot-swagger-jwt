@@ -8,6 +8,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Arrays;
@@ -52,5 +53,11 @@ public class SwaggerConfiguration {
 
     private ApiKey apiKey() {
         return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .build();
     }
 }

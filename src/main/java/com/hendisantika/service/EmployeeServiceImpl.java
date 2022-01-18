@@ -68,4 +68,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employee;
     }
+
+    @Override
+    public Employee removeEmployee(String employeeId) {
+        logger.debug("Remove employee from the employee store");
+        Employee employee = null;
+        if (employeeStore.containsKey(employeeId)) {
+            employee = employeeStore.remove(employeeId);
+            logger.debug("Employee removed");
+        } else {
+            employee = new Employee();
+            logger.debug("Employee does not exists");
+        }
+        return employee;
+    }
 }

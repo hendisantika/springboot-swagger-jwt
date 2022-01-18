@@ -1,0 +1,24 @@
+springdoc:
+  version: '@springdoc.version@'
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    use-root-path: true
+    path: /swagger-ui.html
+    swagger-ui.disable-swagger-default-url: true
+  show-actuator: true
+  group-configs:
+    - group: api
+      paths-to-match: /**
+  # swagger-ui custom path
+  # default Open API endpoint Specifications
+  # api docs endpoint path
+  api-docs:
+    path: /v3/api-docs
+# Open API Configuration
+openapi:
+  title: Open API Demo
+  version: v1.0.0
+  description: Swagger UI using Open API Specification

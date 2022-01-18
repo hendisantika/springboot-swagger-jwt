@@ -82,4 +82,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employee;
     }
+
+    @Override
+    public Employee updateEmployee(Employee employee) {
+        logger.debug("Update employee from the employee store");
+        Employee updatedEmployee = null;
+        if (employeeStore.containsKey(employee.getId())) {
+            updatedEmployee = employee;
+            removeEmployee(employee.getId());
+            employeeStore.put(employee.getId(), employee);
+            logger.debug("Employee updated");
+        } else {
+            EmployeeRequest request = new EmployeeRequest();
+            request.setFirstName(employee.getFirstName());
+            request.setLastName(employee.getLastName());
+            updatedEmployee = addNewEmployee(request);
+            logger.debug("New Employee created");
+        }
+        return updatedEmployee;
+    }
 }

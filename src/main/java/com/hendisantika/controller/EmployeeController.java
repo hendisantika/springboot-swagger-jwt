@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -135,5 +136,45 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.OK).body(employee);
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(employee);
+    }
+
+    /**
+     * Endpoint to update employee
+     *
+     * @return
+     */
+    @PutMapping("/employees")
+    @Operation(summary = "Update Employee else add new employee")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Employee updated", content = {@Content(mediaType =
+                    "application/json", schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "201", description = "Employee created", content = {@Content(mediaType =
+                    "application/json", schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = {@Content(schema =
+            @Schema(hidden = true))}),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = {@Content(schema =
+            @Schema(hidden = true))})
+    })
+    public ResponseEntity<Employee> updateEmployee(
+            @RequestBody Employee employee,
+            HttpServletRequest request
+    ) {
+
+        try {
+            //1. validate auth token
+            String oAuthToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+            logger.debug("TIMESTAMP:{}:Add New Employee:Validate Auth Token {}", System.currentTimeMillis(),
+                    oAuthToken);
+            authenticationService.validateAuthorisation(oAuthToken);
+
+            logger.info("TIMESTAMP:{}:Update Employee:id - {}", System.currentTimeMillis(), employee.getId());
+            Employee updatedEmployee = employeeService.updateEmployee(employee);
+            if (updatedEmployee.getId().equalsIgnoreCase(employee.getId()))
+                return ResponseEntity.status(HttpStatus.OK).body(updatedEmployee);
+            else
+                return ResponseEntity.status(HttpStatus.CREATED).body(updatedEmployee);
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

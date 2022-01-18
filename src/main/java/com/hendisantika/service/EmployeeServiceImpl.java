@@ -54,4 +54,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         logger.debug("Employee Count {}", employeeStore.size());
         return employeeList;
     }
+
+    @Override
+    public Employee getEmployee(String employeeId) {
+        logger.debug("Get employee from the employee store");
+        Employee employee = null;
+        if (employeeStore.containsKey(employeeId)) {
+            employee = employeeStore.get(employeeId);
+            logger.debug("Employee exists");
+        } else {
+            employee = new Employee();
+            logger.debug("Employee does not exists");
+        }
+        return employee;
+    }
 }

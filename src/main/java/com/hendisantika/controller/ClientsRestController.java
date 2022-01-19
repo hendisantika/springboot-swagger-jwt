@@ -21,7 +21,7 @@ import java.util.List;
  * Time: 06.06
  */
 @RestController(value = "/clients")
-@Tag(name = "ClientsRestController", description = "Endpoints for managing ClientsRestController")
+@Tag(name = "Clients", description = "Endpoints for managing Clients")
 public class ClientsRestController {
 
     @Operation(

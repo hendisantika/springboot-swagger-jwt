@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.9</version>
+        <version>3.3.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hendisantika</groupId>
@@ -14,7 +14,7 @@
     <name>springboot-swagger-jwt</name>
     <description>springboot-swagger-jwt</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,7 +33,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.4</version>
+            <version>1.8.0</version>
         </dependency>
         <!--Moshi, a modern JSON library for Java-->
         <!-- https://mvnrepository.com/artifact/com.squareup.moshi/moshi -->
